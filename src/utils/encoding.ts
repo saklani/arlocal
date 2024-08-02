@@ -1,4 +1,4 @@
-import * as B64js from 'base64-js';
+
 import { base32 } from 'rfc4648';
 import { createHash } from 'crypto';
 import { Readable, PassThrough, Transform } from 'stream';
@@ -55,7 +55,7 @@ export class Base64DUrlecode extends Transform {
 }
 
 export function b64UrlToBuffer(b64UrlString: string): Uint8Array {
-  return new Uint8Array(B64js.toByteArray(b64UrlDecode(b64UrlString)));
+  return Buffer.from(b64UrlString, "base64url");
 }
 
 export function b64UrlDecode(b64UrlString: string): string {
@@ -174,7 +174,7 @@ export async function hash(data: Uint8Array, algorithm: string = 'SHA-256'): Pro
 }
 
 export function bufferTob64(buffer: Uint8Array): string {
-  return B64js.fromByteArray(buffer);
+  return Buffer.from(buffer).toString('base64url');
 }
 
 export function bufferTob64Url(buffer: Uint8Array): string {
